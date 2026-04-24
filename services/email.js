@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 async function createTransporter() {
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 465),
+    port: Number(process.env.SMTP_PORT || 587),
     secure: process.env.SMTP_SECURE === "true",
     auth: {
       user: process.env.SMTP_USER,
@@ -88,28 +88,22 @@ async function sendApplicationStatusUpdateEmail(userEmail, userName, jobTitle, s
 }
 
 async function sendPasswordResetEmail(userEmail, userName, resetToken) {
-  const transporter = createTransporter();
-  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-  const resetUrl = `${baseUrl}/reset-password/${resetToken}`;
+  const transporter = await createTransporter();
+  const resetUrl = `${process.env.BASE_URL || 'http://localhost:3000'}/reset-password/${resetToken}`;
 
   return transporter.sendMail({
     from: process.env.MAIL_FROM,
     to: userEmail,
     subject: "Password Reset Request - Skillinfytech Job Portal",
-    text: `Hello ${userName}, reset your password using this link: ${resetUrl}. This link will expire in 1 hour.`,
+    text: `Hello ${userName}, you have requested to reset your password. Click the link below to reset your password: ${resetUrl}. This link will expire in 1 hour.`,
     html: `
       <h2>Password Reset Request</h2>
       <p>Hello ${userName},</p>
-      <p>You requested to reset your password for your Skillinfytech account.</p>
-      <p>
-        <a href="${resetUrl}" style="display:inline-block;padding:10px 20px;background-color:#007bff;color:#ffffff;text-decoration:none;border-radius:5px;">
-          Reset Password
-        </a>
-      </p>
-      <p>If the button does not work, use this link:</p>
-      <p><a href="${resetUrl}">${resetUrl}</a></p>
+      <p>You have requested to reset your password for your Skillinfytech Job Portal account.</p>
+      <p>Click the link below to reset your password:</p>
+      <a href="${resetUrl}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Reset Password</a>
       <p>This link will expire in 1 hour.</p>
-      <p>If you did not request this, please ignore this email.</p>
+      <p>If you didn't request this, please ignore this email.</p>
     `,
   });
 }
