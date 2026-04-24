@@ -89,7 +89,8 @@ async function sendApplicationStatusUpdateEmail(userEmail, userName, jobTitle, s
 
 async function sendPasswordResetEmail(userEmail, userName, resetToken) {
   const transporter = await createTransporter();
-  const resetUrl = `${process.env.BASE_URL || 'http://localhost:3000'}/reset-password/${resetToken}`;
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+  const link = `${frontendUrl}/reset-password/${token}`;
 
   return transporter.sendMail({
     from: process.env.MAIL_FROM,
