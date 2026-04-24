@@ -1,0 +1,75 @@
+<section class="section-title">
+  <p class="eyebrow">Recruiter Dashboard</p>
+  <h1>Manage jobs and monitor incoming student applications</h1>
+</section>
+<section class="metrics-grid">
+  <article class="metric-card">
+    <span>Jobs Posted</span>
+    <strong><%= recruiterJobs.length %></strong>
+  </article>
+  <article class="metric-card">
+    <span>Recent Applicants</span>
+    <strong><%= applicants.length %></strong>
+  </article>
+  <article class="metric-card">
+    <span>Posting Access</span>
+    <strong>Granted</strong>
+  </article>
+</section>
+<section class="two-column">
+  <div class="table-card">
+    <div class="card-heading">
+      <h2>Your Job Listings</h2>
+      <a href="/jobs/new">Post a new job</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Location</th>
+          <th>Type</th>
+          <th>Applications</th>
+          <th>Pending</th>
+          <th>Selected</th>
+          <th>Rejected</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recruiterJobs.forEach((job) => { %>
+        <tr>
+          <td><%= job.title %></td>
+          <td><%= job.location %></td>
+          <td><%= job.employment_type %></td>
+          <td><%= job.application_count %></td>
+          <td><%= job.pending_count %></td>
+          <td><%= job.selected_count %></td>
+          <td><%= job.rejected_count %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-card">
+    <div class="card-heading">
+      <h2>Recent Applicants</h2>
+    </div>
+    <div class="stack">
+      <% applicants.forEach((applicant) => { %>
+      <div class="list-card">
+        <strong><%= applicant.full_name %> applied for <%= applicant.title %></strong>
+        <span><%= applicant.email %></span>
+        <span><%= applicant.skills %></span>
+        <span>Status: <%= applicant.status %></span>
+        <form action="/applications/<%= applicant.id %>/status" method="post" class="inline-form" style="margin-top: 0.5rem;">
+          <select name="status">
+            <option value="pending" <%= applicant.status === "pending" ? "selected" : "" %>>Pending</option>
+            <option value="success" <%= applicant.status === "success" ? "selected" : "" %>>Success</option>
+            <option value="reject" <%= applicant.status === "reject" ? "selected" : "" %>>Reject</option>
+          </select>
+          <button type="submit" class="ghost-button">Update</button>
+        </form>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

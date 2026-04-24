@@ -1,0 +1,46 @@
+<section class="split-layout">
+  <article class="detail-card">
+    <span class="pill"><%= job.employment_type %></span>
+    <h1><%= job.title %></h1>
+    <p class="muted"><%= job.company_name %> • <%= job.location %></p>
+    <p><strong>Salary:</strong> <%= job.salary_range || "Shared during interview" %></p>
+    <h3>Job Description</h3>
+    <p><%= job.description %></p>
+    <h3>Requirements</h3>
+    <p><%= job.requirements %></p>
+    <p><strong>Posted by:</strong> <%= job.recruiter_name %></p>
+  </article>
+  <aside class="detail-card">
+    <h2>Apply for this job</h2>
+    <% if (!currentUser) { %>
+    <p>Please login as a candidate to apply.</p>
+    <a class="primary-button full-width" href="/login">Login to Apply</a>
+    <% } else if (currentUser.role !== "candidate") { %>
+    <p>Only student candidate accounts can apply for jobs.</p>
+    <% } else if (hasApplied) { %>
+    <p>You already applied for this position.</p>
+    <a class="secondary-button full-width" href="/dashboard">View Dashboard</a>
+    <% } else { %>
+    <form
+      action="/jobs/<%= job.id %>/apply"
+      method="post"
+      enctype="multipart/form-data"
+      class="form-card"
+    >
+      <label>
+        Cover Letter
+        <textarea
+          name="coverLetter"
+          rows="6"
+          placeholder="Tell Skillinfytech why you are a strong fit for this job."
+        ></textarea>
+      </label>
+      <label>
+        Resume Upload
+        <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
+      </label>
+      <button type="submit" class="primary-button full-width">Submit Application</button>
+    </form>
+    <% } %>
+  </aside>
+</section>

@@ -1,0 +1,44 @@
+<section class="hero-panel">
+  <div>
+    <p class="eyebrow">Real-world HR Portal</p>
+    <h1>Build your career with the Skillinfytech Job Portal.</h1>
+    <p class="lead">
+      Recruiters can upload job details, students can register and apply with resumes,
+      and admins can manage access across the platform.
+    </p>
+    <div class="action-row">
+      <a class="primary-button" href="/jobs">Explore Jobs</a>
+      <a class="secondary-button" href="/register">Student Registration</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h3>Portal Highlights</h3>
+    <ul class="check-list">
+      <li>Role-based access for Admin, Recruiter, and Candidate</li>
+      <li>Job posting with rich descriptions and requirements</li>
+      <li>Resume and profile photo upload for students</li>
+      <li>Email confirmation after successful application</li>
+    </ul>
+  </div>
+</section>
+<section class="section-header">
+  <div>
+    <p class="eyebrow">Latest Openings</p>
+    <h2>Featured jobs from Skillinfytech recruiters</h2>
+  </div>
+  <a href="/jobs" class="text-link">See all positions</a>
+</section>
+<section class="card-grid">
+  <% jobs.forEach((job) => { %>
+  <article class="job-card">
+    <span class="pill"><%= job.employment_type %></span>
+    <h3><%= job.title %></h3>
+    <p class="muted"><%= job.company_name %> • <%= job.location %></p>
+    <p><%= job.description %></p>
+    <div class="meta-row">
+      <span><%= job.salary_range || "Compensation shared during interview" %></span>
+      <a href="/jobs/<%= job.id %>">View job</a>
+    </div>
+  </article>
+  <% }) %>
+</section>

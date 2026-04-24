@@ -1,0 +1,45 @@
+<section class="form-section">
+  <div class="section-title">
+    <p class="eyebrow">Recruiter Tools</p>
+    <h1>Upload a new job detail</h1>
+  </div>
+  <form action="/jobs/new" method="post" class="form-card two-up">
+    <label>
+      Job Title
+      <input type="text" name="title" required />
+    </label>
+    <label>
+      Company Name
+      <input type="text" name="companyName" value="Skillinfytech" required />
+    </label>
+    <label>
+      Location
+      <input type="text" name="location" required />
+    </label>
+    <label>
+      Employment Type
+      <select name="employmentType" required>
+        <option value="Internship">Internship</option>
+        <option value="Full Time">Full Time</option>
+        <option value="Part Time">Part Time</option>
+        <option value="Contract">Contract</option>
+      </select>
+    </label>
+    <label>
+      Salary Range
+      <input type="text" name="salaryRange" />
+    </label>
+    <label class="full-span">
+      Job Description
+      <textarea name="description" rows="6" required></textarea>
+    </label>
+    <label class="full-span">
+      Requirements
+      <textarea name="requirements" rows="5" required></textarea>
+    </label>
+    <label>
+      <input type="checkbox" name="isOpen" checked /> Open for applications
+    </label>
+    <button type="submit" class="primary-button">Publish Job</button>
+  </form>
+</section>

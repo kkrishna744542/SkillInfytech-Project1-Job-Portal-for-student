@@ -1,0 +1,71 @@
+<section class="section-title">
+  <p class="eyebrow">Candidate Dashboard</p>
+  <h1>Track your applications and explore new opportunities</h1>
+</section>
+
+<% if (currentUser && currentUser.profilePhoto) { %>
+<div style="text-align: center; margin: 2rem 0;">
+  <img src="<%= currentUser.profilePhoto %>" alt="Profile Photo" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+  <p style="margin-top: 0.5rem;">Welcome back, <%= currentUser.fullName %>!</p>
+</div>
+<% } %>
+
+<section class="metrics-grid">
+  <article class="metric-card">
+    <span>Total Applications</span>
+    <strong><%= applications.length %></strong>
+  </article>
+  <article class="metric-card">
+    <span>Profile Status</span>
+    <strong>Active</strong>
+  </article>
+  <article class="metric-card">
+    <span>Email Confirmation</span>
+    <strong>Enabled</strong>
+  </article>
+</section>
+<section class="two-column">
+  <div class="table-card">
+    <div class="card-heading">
+      <h2>Your Applications</h2>
+      <a href="/jobs">Find more jobs</a>
+    </div>
+    <% if (!applications.length) { %>
+    <p>No applications yet. Start applying to jobs today.</p>
+    <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>Company</th>
+          <th>Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% applications.forEach((application) => { %>
+        <tr>
+          <td><%= application.title %></td>
+          <td><%= application.company_name %></td>
+          <td><%= application.location %></td>
+          <td><%= application.status %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </div>
+  <div class="table-card">
+    <div class="card-heading">
+      <h2>Recommended Jobs</h2>
+    </div>
+    <div class="stack">
+      <% recommendedJobs.forEach((job) => { %>
+      <a href="/jobs/<%= job.id %>" class="list-card">
+        <strong><%= job.title %></strong>
+        <span><%= job.company_name %> • <%= job.location %></span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>

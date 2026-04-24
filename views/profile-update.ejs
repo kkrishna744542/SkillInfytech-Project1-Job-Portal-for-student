@@ -1,0 +1,37 @@
+<section class="form-section">
+  <div class="section-title">
+    <p class="eyebrow">Profile Settings</p>
+    <h1>Update Your Profile</h1>
+  </div>
+  
+  <div class="split-layout">
+    <article class="detail-card">
+      <h2>Profile Information</h2>
+      <% if (user.profile_photo) { %>
+        <div style="margin-bottom: 1.5rem; text-align: center;">
+          <img src="<%= user.profile_photo %>" alt="Profile Photo" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+        </div>
+      <% } %>
+      <p><strong>Name:</strong> <%= user.full_name %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Member Since:</strong> <%= new Date(user.created_at).toLocaleDateString() %></p>
+    </article>
+
+    <form action="/profile" method="post" enctype="multipart/form-data" class="form-card">
+      <label>
+        Phone Number
+        <input type="tel" name="phone" value="<%= user.phone || '' %>" placeholder="Enter your phone number" />
+      </label>
+      <label>
+        Skills
+        <textarea name="skills" rows="4" placeholder="Add your skills (e.g., JavaScript, React, Node.js, etc.)"><%= user.skills || '' %></textarea>
+      </label>
+      <label>
+        Update Profile Photo
+        <input type="file" name="profilePhoto" accept="image/*" />
+        <small>Upload a new profile photo (optional)</small>
+      </label>
+      <button type="submit" class="primary-button">Save Changes</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+<section class="section-title">
+  <p class="eyebrow">Open Roles</p>
+  <h1>Find the right job for your next step</h1>
+</section>
+<section class="card-grid">
+  <% jobs.forEach((job) => { %>
+  <article class="job-card">
+    <span class="pill"><%= job.employment_type %></span>
+    <h3><%= job.title %></h3>
+    <p class="muted"><%= job.company_name %> • <%= job.location %></p>
+    <p><%= job.description %></p>
+    <div class="stack small-gap">
+      <span><strong>Requirements:</strong> <%= job.requirements %></span>
+      <span><strong>Posted by:</strong> <%= job.recruiter_name %></span>
+    </div>
+    <div class="meta-row">
+      <span><%= job.salary_range || "Compensation shared later" %></span>
+      <a href="/jobs/<%= job.id %>">Apply now</a>
+    </div>
+  </article>
+  <% }) %>
+</section>

@@ -1,0 +1,105 @@
+<section class="section-title">
+  <p class="eyebrow">Admin Dashboard</p>
+  <h1>Manage platform users, recruiters, jobs, and applications</h1>
+</section>
+<section class="metrics-grid">
+  <article class="metric-card">
+    <span>Total Users</span>
+    <strong><%= users.length %></strong>
+  </article>
+  <article class="metric-card">
+    <span>Total Jobs</span>
+    <strong><%= jobs.length %></strong>
+  </article>
+  <article class="metric-card">
+    <span>Recent Applications</span>
+    <strong><%= recentApplications.length %></strong>
+  </article>
+</section>
+<section class="two-column admin-grid">
+  <div class="table-card">
+    <div class="card-heading">
+      <h2>User Role Management</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Change Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach((user) => { %>
+        <tr>
+          <td><%= user.full_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+          <td>
+            <form action="/admin/users/<%= user.id %>/role" method="post" class="inline-form">
+              <select name="role">
+                <option value="candidate" <%= user.role === "candidate" ? "selected" : "" %>>Candidate</option>
+                <option value="recruiter" <%= user.role === "recruiter" ? "selected" : "" %>>Recruiter</option>
+                <option value="admin" <%= user.role === "admin" ? "selected" : "" %>>Admin</option>
+              </select>
+              <button type="submit" class="ghost-button">Update</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-card">
+    <div class="card-heading">
+      <h2>Recent Job Posts</h2>
+      <a href="/jobs/new">Upload job details</a>
+    </div>
+    <div class="stack">
+      <% jobs.forEach((job) => { %>
+      <div class="list-card">
+        <strong><%= job.title %></strong>
+        <span><%= job.company_name %> • <%= job.location %></span>
+        <span>Posted by <%= job.recruiter_name %></span>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<section class="table-card">
+  <div class="card-heading">
+    <h2>Latest Applications</h2>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Candidate</th>
+        <th>Email</th>
+        <th>Job</th>
+        <th>Status</th>
+        <th>Update Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% recentApplications.forEach((application) => { %>
+      <tr>
+        <td><%= application.full_name %></td>
+        <td><%= application.email %></td>
+        <td><%= application.title %></td>
+        <td><%= application.status %></td>
+        <td>
+          <form action="/applications/<%= application.id %>/status" method="post" class="inline-form">
+            <select name="status">
+              <option value="pending" <%= application.status === "pending" ? "selected" : "" %>>Pending</option>
+              <option value="success" <%= application.status === "success" ? "selected" : "" %>>Success</option>
+              <option value="reject" <%= application.status === "reject" ? "selected" : "" %>>Reject</option>
+            </select>
+            <button type="submit" class="ghost-button">Update</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,33 @@
+<section class="form-section narrow">
+  <div class="section-title">
+    <p class="eyebrow">Student Onboarding</p>
+    <h1>Create your candidate account</h1>
+  </div>
+  <form action="/register" method="post" enctype="multipart/form-data" class="form-card">
+    <label>
+      Full Name
+      <input type="text" name="fullName" required />
+    </label>
+    <label>
+      Email Address
+      <input type="email" name="email" required />
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" minlength="6" required />
+    </label>
+    <label>
+      Phone Number
+      <input type="text" name="phone" required />
+    </label>
+    <label>
+      Skills
+      <textarea name="skills" rows="4" placeholder="React, Node.js, SQL, Communication" required></textarea>
+    </label>
+    <label>
+      Profile Photo
+      <input type="file" name="profilePhoto" accept="image/*" />
+    </label>
+    <button type="submit" class="primary-button full-width">Register as Candidate</button>
+  </form>
+</section>

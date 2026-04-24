@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="brand-row">
+    <a href="/" class="brand">Skillinfytech</a>
+    <nav class="nav-links">
+      <a href="/jobs">Jobs</a>
+      <% if (!currentUser) { %>
+      <a href="/register">Student Register</a>
+      <a href="/login">Login</a>
+      <% } else { %>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/profile">Profile</a>
+      <% if (currentUser.role === "admin" || currentUser.role === "recruiter") { %>
+      <a href="/jobs/new">Post Job</a>
+      <% } %>
+      <form action="/logout" method="post">
+        <button type="submit" class="ghost-button">Logout</button>
+      </form>
+      <% } %>
+    </nav>
+  </div>
+</header>
